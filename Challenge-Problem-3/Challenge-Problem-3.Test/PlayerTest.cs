@@ -1,3 +1,7 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using Challenge_Problem_3.Util;
 using NUnit.Framework;
 
 namespace Challenge_Problem_3.Test
@@ -22,6 +26,91 @@ namespace Challenge_Problem_3.Test
             player.MoveUp();
 
             Assert.AreEqual(0, player.Position.Y);
+        }
+        
+        [Test]
+        public void JumpShouldSubtractTwoFromPlayerYPosition()
+        {
+            Player player = new Player(1, 2);
+            
+            player.Jump();
+
+            Assert.AreEqual(0, player.Position.Y);
+        }
+        
+        [Test]
+        public void JumpShouldDoNothingIfPlayerYPositionIsLessThanOrEqualToOne()
+        {
+            Player player = new Player(1, 1);
+            
+            player.Jump();
+
+            Assert.AreEqual(1, player.Position.Y);
+        }
+            
+        [Test]
+        public void MoveDownShouldAddOneToPlayerYPosition()
+        {
+            Player player = new Player(1, 1);
+            
+            player.MoveDown();
+
+            Assert.AreEqual(2, player.Position.Y);
+        }
+        
+        [Test]
+        public void MoveLeftShouldSubractOneFromPlayerXPosition()
+        {
+            Player player = new Player(1, 1);
+            
+            player.MoveLeft();
+
+            Assert.AreEqual(0, player.Position.X);
+        }
+        
+        [Test]
+        public void MoveLeftShouldDoNothingIfPlayerXPositionIsAtZero()
+        {
+            Player player = new Player(0, 1);
+            
+            player.MoveLeft();
+
+            Assert.AreEqual(0, player.Position.X);
+        }
+        
+        [Test]
+        public void MoveRightShouldAddOneToPlayerXPosition()
+        {
+            Player player = new Player(1, 1);
+            
+            player.MoveRight();
+
+            Assert.AreEqual(2, player.Position.X);
+        }
+
+        [Test]
+        public void DetermineNextMoveShouldCallJumpWhenSpaceKeyIsPassedIn()
+        {
+            Player player = new Player(5, 5);
+            
+            player.DetermineNextMove(' ');
+            
+            Assert.AreEqual(3, player.Position.Y);
+        }
+
+        [Test]
+        public void ReadInputShouldCreateAListOfChars()
+        {
+            Player player = new Player();
+            char spaceCharacter = Char.Parse(Char.ConvertFromUtf32(9141));
+
+            List<char> chars = player.ReadInput(new FileStream("/Users/mattleuer/Developer/Challenge-Problem-3/Challenge-Problem-3/Challenge-Problem-3/Util/PlayerInput.txt", FileMode.Open));
+            
+            Assert.AreEqual('W', chars[2]);
+            Assert.AreEqual(spaceCharacter, chars[5]);
+            Assert.AreEqual('A', chars[9]);
+            Assert.AreEqual('S', chars[11]);
+            Assert.AreEqual('D', chars[22]);
         }
     }
 }

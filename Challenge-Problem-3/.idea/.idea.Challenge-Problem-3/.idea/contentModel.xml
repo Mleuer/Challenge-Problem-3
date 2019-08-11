@@ -16,6 +16,7 @@
         <e p="Util" t="Include">
           <e p="Coordinate2D.cs" t="Include" />
           <e p="ExpectedOutput.txt" t="Include" />
+          <e p="Key.cs" t="Include" />
           <e p="PlayerInput.txt" t="Include" />
           <e p="ReadMe.md" t="Include" />
         </e>
