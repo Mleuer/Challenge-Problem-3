@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text.RegularExpressions;
 using Challenge_Problem_3.Util;
 
 namespace Challenge_Problem_3
@@ -14,7 +15,7 @@ namespace Challenge_Problem_3
             Position.X = 0;
             Position.Y = 0;
         }
-        public Player(uint xPosition, uint yPosition)
+        public Player(int xPosition, int yPosition)
         {
             Position.X = xPosition;
             Position.Y = yPosition;
@@ -22,17 +23,11 @@ namespace Challenge_Problem_3
 
         public void MoveUp()
         {
-            if (Position.Y > 0)
-            {
-                Position.Y -= 1;
-            }
+            Position.Y -= 1;
         }
         public void Jump()
         {
-            if (Position.Y >= 2)
-            {
-                Position.Y -= 2;
-            }
+            Position.Y -= 2;
         }
         public void MoveDown()
         {
@@ -40,10 +35,7 @@ namespace Challenge_Problem_3
         }
         public void MoveLeft()
         {
-            if (Position.X > 0)
-            {
-                Position.X -= 1;
-            }
+            Position.X -= 1;
         }
         public void MoveRight()
         {
@@ -52,48 +44,75 @@ namespace Challenge_Problem_3
 
         public void DetermineNextMove(char key)
         {
-           char upperKey = char.ToUpper(key);
+            char upperKey = char.ToUpper(key);
             switch (upperKey)
             {
                 case 'W':
                     MoveUp();
+                    printPosition();
                     break;
                 case 'A':
                     MoveLeft();
+                    printPosition();
                     break;
                 case 'S':
                     MoveDown();
+                    printPosition();
                     break;
                 case 'D':
                     MoveRight();
+                    printPosition();
                     break;
-                case ' ':
+                case '⎵':
                     Jump();
+                    printPosition();
                     break;
             }
         }
-        public List<char> ReadInput(FileStream playerInput)
+
+        private void printPosition()
+        {
+            Console.Out.WriteLine("Player location: (" + Position.X + ", " + Position.Y + ")" );
+        }
+
+        public int CountNumberOfSpacesMoved(List<char> moveList)
+        {
+            int spacesMoved = 0;
+            foreach (var character in moveList)
+            {
+                if (character == 'W' || character == 'A' || character == 'S' || character == 'D')
+                {
+                    spacesMoved ++;
+                }
+                else
+                {
+                    spacesMoved += 2;
+                }
+            }
+            return spacesMoved;
+        }
+        public List<char> ReadInput(Stream playerInput)
         {
             System.IO.StreamReader streamReader = new StreamReader(playerInput);
-            String line = streamReader.ReadLine();
-            char key = Char.Parse(line);
+            String playerInputString = streamReader.ReadToEnd();
+            string trimmedPlayerInputString = Regex.Replace(playerInputString, @"\t|\n|\r", "");
             List<char> characters = new List<char>();
-            characters.Add(key);
-            
-            while (line != null) {
-                line = streamReader.ReadLine();
-                if (line != null)
-                {
-                    key = char.Parse(line);
-                    characters.Add(key);
-                }
-                
-            }
 
+            foreach (var character in trimmedPlayerInputString)
+            {
+                characters.Add(character);
+            }
             return characters;
         }
-        
-        
+
+        public void determineAllMoves(List<char> chars)
+        {
+            printPosition();
+            foreach (var character in chars)
+            {
+                DetermineNextMove(character);
+            }
+        }
         
     }
     
