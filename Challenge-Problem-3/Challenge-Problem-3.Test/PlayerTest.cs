@@ -20,16 +20,6 @@ namespace Challenge_Problem_3.Test
         }
         
         [Test]
-        public void MoveUpShouldDoNothingIfPlayerYPositionIsAtZero()
-        {
-            Player player = new Player(1, 0);
-            
-            player.MoveUp();
-
-            Assert.AreEqual(0, player.Position.Y);
-        }
-        
-        [Test]
         public void JumpShouldSubtractTwoFromPlayerYPosition()
         {
             Player player = new Player(1, 2);
@@ -38,17 +28,7 @@ namespace Challenge_Problem_3.Test
 
             Assert.AreEqual(0, player.Position.Y);
         }
-        
-        [Test]
-        public void JumpShouldDoNothingIfPlayerYPositionIsLessThanOrEqualToOne()
-        {
-            Player player = new Player(1, 1);
-            
-            player.Jump();
 
-            Assert.AreEqual(1, player.Position.Y);
-        }
-            
         [Test]
         public void MoveDownShouldAddOneToPlayerYPosition()
         {
@@ -68,17 +48,7 @@ namespace Challenge_Problem_3.Test
 
             Assert.AreEqual(0, player.Position.X);
         }
-        
-        [Test]
-        public void MoveLeftShouldDoNothingIfPlayerXPositionIsAtZero()
-        {
-            Player player = new Player(0, 1);
-            
-            player.MoveLeft();
 
-            Assert.AreEqual(0, player.Position.X);
-        }
-        
         [Test]
         public void MoveRightShouldAddOneToPlayerXPosition()
         {
@@ -94,7 +64,7 @@ namespace Challenge_Problem_3.Test
         {
             Player player = new Player(5, 5);
             
-            player.DetermineNextMove(' ');
+            player.DetermineNextMove('⎵');
             
             Assert.AreEqual(3, player.Position.Y);
         }
@@ -118,14 +88,15 @@ namespace Challenge_Problem_3.Test
         }
 
         [Test]
-        public void CountNumberOfSpacesMovedShouldReturn10AsTheTotalSpacesMoved()
+        public void IncrementNumberOfSpacesMovedShouldAdd3ToThePlayersTotalSpacesMovedWhenMoveRightIsCalled3Times()
         {
             Player player = new Player();
-            List<char> movesList = new List<char> {'W', 'A', 'S', 'S', 'S', 'D', '⎵', '⎵'};
 
-            int numberOfSpacesMoved = player.CountNumberOfSpacesMoved(movesList);
+            player.MoveRight();
+            player.MoveRight();
+            player.MoveRight();
             
-            Assert.AreEqual(10, numberOfSpacesMoved);
+            Assert.AreEqual(3, player.TotalSpacesMoved);
             
         }
     }

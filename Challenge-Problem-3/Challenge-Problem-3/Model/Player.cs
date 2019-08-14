@@ -9,37 +9,45 @@ namespace Challenge_Problem_3
     public class Player
     {
         public Coordinate2D Position = new Coordinate2D();
+        public int TotalSpacesMoved;
 
         public Player()
         {
             Position.X = 0;
             Position.Y = 0;
+            TotalSpacesMoved = 0;
         }
         public Player(int xPosition, int yPosition)
         {
             Position.X = xPosition;
             Position.Y = yPosition;
+            TotalSpacesMoved = 0;
         }
 
         public void MoveUp()
         {
             Position.Y -= 1;
+            IncrementNumberOfSpacesMovedByGivenNumber(1);
         }
         public void Jump()
         {
             Position.Y -= 2;
+            IncrementNumberOfSpacesMovedByGivenNumber(2);
         }
         public void MoveDown()
         {
             Position.Y += 1;
+            IncrementNumberOfSpacesMovedByGivenNumber(1);
         }
         public void MoveLeft()
         {
             Position.X -= 1;
+            IncrementNumberOfSpacesMovedByGivenNumber(1);
         }
         public void MoveRight()
         {
             Position.X += 1;
+            IncrementNumberOfSpacesMovedByGivenNumber(1);
         }
 
         public void DetermineNextMove(char key)
@@ -75,21 +83,9 @@ namespace Challenge_Problem_3
             Console.Out.WriteLine("Player location: (" + Position.X + ", " + Position.Y + ")" );
         }
 
-        public int CountNumberOfSpacesMoved(List<char> moveList)
+        private void IncrementNumberOfSpacesMovedByGivenNumber(int number)
         {
-            int spacesMoved = 0;
-            foreach (var character in moveList)
-            {
-                if (character == 'W' || character == 'A' || character == 'S' || character == 'D')
-                {
-                    spacesMoved ++;
-                }
-                else
-                {
-                    spacesMoved += 2;
-                }
-            }
-            return spacesMoved;
+            TotalSpacesMoved += number;
         }
         public List<char> ReadInput(Stream playerInput)
         {
