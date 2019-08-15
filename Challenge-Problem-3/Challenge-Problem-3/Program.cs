@@ -7,13 +7,7 @@ namespace Challenge_Problem_3
     {
         public static void Main(string[] args)
         {
-            Console.Out.WriteLine("Game Started");
-            var player = new Player();
-            var movesList = player.ReadInput(new FileStream("/Users/mattleuer/Developer/Challenge-Problem-3/Challenge-Problem-3/Challenge-Problem-3/Util/PlayerInput.txt", FileMode.Open));
-            player.determineAllMoves(movesList);
-            Console.Out.WriteLine("Game Over");
-            Console.Out.WriteLine("Player Moved " + player.TotalSpacesMoved + " units total");
-
+            Game.Play();
         }
     }
 }

@@ -13,14 +13,11 @@ namespace Challenge_Problem_3
 
         public Player()
         {
-            Position.X = 0;
-            Position.Y = 0;
             TotalSpacesMoved = 0;
         }
         public Player(int xPosition, int yPosition)
         {
-            Position.X = xPosition;
-            Position.Y = yPosition;
+            Position = new Coordinate2D(xPosition, yPosition);
             TotalSpacesMoved = 0;
         }
 

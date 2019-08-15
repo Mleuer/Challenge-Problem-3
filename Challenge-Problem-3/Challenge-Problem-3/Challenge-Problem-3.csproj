@@ -38,6 +38,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\Game.cs" />
     <Compile Include="Model\Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -45,8 +46,8 @@
     <Compile Include="Util\Key.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Util\ExpectedOutput.txt" />
-    <Content Include="Util\PlayerInput.txt" />
+    <Content Include="ExpectedOutput.txt" />
+    <Content Include="PlayerInput.txt" />
     <Content Include="Util\ReadMe.md" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
@@ -57,4 +58,8 @@
     <Target Name="AfterBuild">
     </Target>
     -->
+  <Target Name="CopyPlayerInputFile" AfterTargets="AfterBuild">
+    <Copy SourceFiles="PlayerInput.txt" DestinationFolder="$(OutDir)" />
+    <!--add other dynamic library redirect configs here if needed-->
+  </Target>
 </Project>
