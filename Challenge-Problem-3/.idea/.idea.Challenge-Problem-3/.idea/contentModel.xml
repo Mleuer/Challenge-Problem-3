@@ -18,8 +18,8 @@
         </e>
         <e p="Util" t="Include">
           <e p="Coordinate2D.cs" t="Include" />
-          <e p="Key.cs" t="Include" />
           <e p="ReadMe.md" t="Include" />
+          <e p="UserInput.cs" t="Include" />
         </e>
       </e>
       <e p="Challenge-Problem-3.sln" t="IncludeFlat" />

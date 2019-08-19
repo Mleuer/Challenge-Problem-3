@@ -10,8 +10,8 @@ namespace Challenge_Problem_3
         public static void Play()
         {
             Console.Out.WriteLine("Game Started");
-            var movesList = Player.ReadInput(new FileStream("PlayerInput.txt", FileMode.Open));
-            Player.determineAllMoves(movesList);
+            var movesList = Player.ParsePlayerInput(new FileStream("PlayerInput.txt", FileMode.Open));
+            Player.ExecuteAllMoves(movesList);
             Console.Out.WriteLine("Game Over");
             Console.Out.WriteLine("Player Moved " + Player.TotalSpacesMoved + " units total");
         }

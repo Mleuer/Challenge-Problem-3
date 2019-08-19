@@ -60,11 +60,11 @@ namespace Challenge_Problem_3.Test
         }
 
         [Test]
-        public void DetermineNextMoveShouldCallJumpWhenSpaceKeyIsPassedIn()
+        public void ExecuteNextMoveShouldCallJumpWhenSpaceKeyIsPassedIn()
         {
             Player player = new Player(5, 5);
             
-            player.DetermineNextMove('⎵');
+            player.ExecuteNextMove(UserInput.Space);
             
             Assert.AreEqual(3, player.Position.Y);
         }
@@ -76,15 +76,14 @@ namespace Challenge_Problem_3.Test
             String inputString = "DSWDD⎵SSSADSSAWS⎵SS⎵SDDA";
             byte[] byteArray = Encoding.UTF8.GetBytes(inputString); 
             MemoryStream inputStream = new MemoryStream(byteArray);
-            char spaceCharacter = Char.Parse(Char.ConvertFromUtf32(9141));
 
-            List<char> chars = player.ReadInput(inputStream);
+            List<UserInput> userInputs = player.ParsePlayerInput(inputStream);
             
-            Assert.AreEqual('W', chars[2]);
-            Assert.AreEqual(spaceCharacter, chars[5]);
-            Assert.AreEqual('A', chars[9]);
-            Assert.AreEqual('S', chars[11]);
-            Assert.AreEqual('D', chars[22]);
+            Assert.AreEqual(UserInput.W, userInputs[2]);
+            Assert.AreEqual(UserInput.Space, userInputs[5]);
+            Assert.AreEqual(UserInput.A, userInputs[9]);
+            Assert.AreEqual(UserInput.S, userInputs[11]);
+            Assert.AreEqual(UserInput.D, userInputs[22]);
         }
 
         [Test]

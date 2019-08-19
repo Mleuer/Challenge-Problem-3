@@ -47,28 +47,27 @@ namespace Challenge_Problem_3
             IncrementNumberOfSpacesMovedByGivenNumber(1);
         }
 
-        public void DetermineNextMove(char key)
+        public void ExecuteNextMove(Enum key)
         {
-            char upperKey = char.ToUpper(key);
-            switch (upperKey)
+            switch (key)
             {
-                case 'W':
+                case UserInput.W:
                     MoveUp();
                     printPosition();
                     break;
-                case 'A':
+                case UserInput.A:
                     MoveLeft();
                     printPosition();
                     break;
-                case 'S':
+                case UserInput.S:
                     MoveDown();
                     printPosition();
                     break;
-                case 'D':
+                case UserInput.D:
                     MoveRight();
                     printPosition();
                     break;
-                case '⎵':
+                case UserInput.Space:
                     Jump();
                     printPosition();
                     break;
@@ -84,27 +83,34 @@ namespace Challenge_Problem_3
         {
             TotalSpacesMoved += number;
         }
-        public List<char> ReadInput(Stream playerInput)
+        public List<UserInput> ParsePlayerInput(Stream playerInput)
         {
             System.IO.StreamReader streamReader = new StreamReader(playerInput);
             String playerInputString = streamReader.ReadToEnd();
             string trimmedPlayerInputString = Regex.Replace(playerInputString, @"\t|\n|\r", "");
-            List<char> characters = new List<char>();
+            var userInputs = new List<UserInput>();
 
             foreach (var character in trimmedPlayerInputString)
             {
-                characters.Add(character);
+                UserInput input = UserInputFactory.createFromChar(character);
+                userInputs.Add(input);
             }
-            return characters;
+            return userInputs;
         }
 
-        public void determineAllMoves(List<char> chars)
+        public void ExecuteAllMoves(List<UserInput> userInputs)
         {
             printPosition();
-            foreach (var character in chars)
+            foreach (var character in userInputs)
             {
-                DetermineNextMove(character);
+                ExecuteNextMove(character);
             }
+        }
+
+        public void ExecutePlayerInput(Stream playerInput)
+        {
+            var movesList = ParsePlayerInput(playerInput);
+            ExecuteAllMoves(movesList);
         }
         
     }
